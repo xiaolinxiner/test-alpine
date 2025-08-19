@@ -14,7 +14,7 @@ jobs:
       image: alpine
       volumes:
         - /tmp:/tmp:rw,rshared
-        - /tmp:/__e:ro,rshared
+        - /tmp:/__e/node20:ro,rshared
     steps:
       - name: Allow Linux musl containers on ARM64 runners
         run: |
