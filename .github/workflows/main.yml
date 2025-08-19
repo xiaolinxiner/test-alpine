@@ -20,7 +20,7 @@ jobs:
         run: |
           sed -i "/^ID=/s/alpine/NotpineForGHA/" /etc/os-release
           apk add nodejs build-base --update-cache
-          mkdir -p /tmp/node20/bin
+          mkdir -p /tmp/bin
           ln -s /usr/bin/node /tmp/bin/node
       - name: chekout
         uses: actions/checkout@v4
