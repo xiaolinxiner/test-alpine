@@ -13,15 +13,14 @@ jobs:
     container:
       image: alpine
       volumes:
-        - /tmp:/tmp:rw,rshared
-        - /tmp/node20:/__e/node20:ro,rshared
+        - /opt/node20:/__e/node20:rw,rshared
     steps:
       - name: Allow Linux musl containers on ARM64 runners
         run: |
           sed -i "/^ID=/s/alpine/NotpineForGHA/" /etc/os-release
           apk add nodejs build-base --update-cache
-          mkdir -p /tmp/node20/bin
-          ln -s /usr/bin/node /tmp/node20/bin/node
+          mkdir -p /__e/node20/bin
+          ln -s /usr/bin/node /__e/node20/bin/node
       - name: chekout
         uses: actions/checkout@v4
       - name: compile
