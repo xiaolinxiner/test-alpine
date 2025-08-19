@@ -1,0 +1,26 @@
+on:
+  push:
+    branches:
+    - main
+  workflow_dispatch:
+
+jobs:
+  buid:
+    name: build
+    runs-on: ubuntu-24.04-arm
+    container:
+      image: alpine
+      volumes:
+        - /opt:/opt:rw,rshared
+        - /opt:/__e/node20:ro,rshared
+    steps:
+      - name: Allow Linux musl containers on ARM64 runners
+        run: |
+          sed -i "/^ID=/s/alpine/NotpineForGHA/" /etc/os-release
+          apk add nodejs build-base --update-cache
+          mkdir /opt/bin
+          ln -s /usr/bin/node /opt/bin/node
+      - name: chekout
+        uses: actions/checkout@v4
+      - name: compile
+        run: gcc test.c -o test
